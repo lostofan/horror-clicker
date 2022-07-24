@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useAppSelector } from '../redux/hooks';
 
 import "../style/main.scss"
-import { ControlPanel } from './ControlPanel';
 import { Counter } from './Counter';
 import { Workbench } from './Workbench';
 
@@ -17,7 +16,6 @@ export const Main = () => {
     <main className="main">
       <Counter />
       <Workbench />
-      <ControlPanel />
     </main>
     
   )
