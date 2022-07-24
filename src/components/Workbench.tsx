@@ -16,6 +16,7 @@ const killerList = useAppSelector(state => state.counter.items);
             key={idx}
             multiplier={params.multiplier}
             counter={params.value}
+            price={params.price}
             />
             )
           }

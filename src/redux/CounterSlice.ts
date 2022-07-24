@@ -8,6 +8,7 @@ type CounterStateType = {
         [key:string]: {
             multiplier: number;
             value: number;
+            price: number;
         }
     }
 }
@@ -18,15 +19,18 @@ const initialState:CounterStateType = {
     items: {
        jason: {
         multiplier: 1,
-        value: 0
+        value: 0,
+        price: 200,
        },
        freddy: {
         multiplier: 0.5,
-        value: 0
+        value: 0,
+        price: 100,
        },
        mike: {
         multiplier: 0.20,
-        value: 0
+        value: 0,
+        price: 50,
        }
     }
     
@@ -35,14 +39,15 @@ const initialState:CounterStateType = {
 type ActionPickType = {
     name: string;
 }
-type ActionAddCount = {
+type ActionChangeCount = {
     value: number;
 }
+
 const counterSlice = createSlice({
     name: "counter",
     initialState,
     reducers: {
-        addCounter: (state, action:PayloadAction<ActionAddCount>) => {
+        addCounter: (state, action:PayloadAction<ActionChangeCount>) => {
             state.value += action.payload.value;
         },
         addKiller: (state, action:PayloadAction<ActionPickType>) => {
@@ -50,8 +55,11 @@ const counterSlice = createSlice({
             state.items[action.payload.name].value += 1;
             console.log(state.items[action.payload.name].value);
         },
-        addWeapon: (state, action:PayloadAction<ActionAddCount>) => {
+        addWeapon: (state, action:PayloadAction<ActionChangeCount>) => {
             state.clickMultiplier *= action.payload.value;
+        },
+        buyItem: (state, action:PayloadAction<ActionChangeCount>) => {
+            state.value -= action.payload.value;
         }
     }
 });
@@ -60,5 +68,5 @@ const counterSlice = createSlice({
 export const selectCount = (state: RootState) => state.counter.value;
 
 
-export const {addCounter, addKiller, addWeapon} = counterSlice.actions;
+export const {addCounter, addKiller, addWeapon, buyItem} = counterSlice.actions;
 export default counterSlice.reducer;
