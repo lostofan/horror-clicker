@@ -17,18 +17,50 @@
       height: 100px;
       margin: 15px;
       background-color: white;
-      border: 3px solid black;
+      position: relative;
       &:disabled {
-        background-color: black;
-        opacity: 30%;
+        background-color: rgba($color: #000000, $alpha: 0.3);
+
+        img {
+          opacity: 30%;
+        }
+      }
+      &:disabled .btn__price {
+        opacity: 100%;
       }
       &:hover {
         border: 4px solid red;
       }
       img {
-        margin: auto;
         width: 100%;
+        height: 100%;
       }
+      .btn__price,
+      .btn__count {
+        opacity: 100%;
+        position: absolute;
+        text-shadow: 1px 1px 1px red;
+        display: inline;
+      }
+      .btn__price {
+        right: 0;
+        bottom: 0;
+      }
+      .btn__count {
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+  .workbench__killers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-top: 3px solid pink;
+    img {
+      width: 80px;
+      height: 150px;
+      margin-right: -10px;
     }
   }
 }

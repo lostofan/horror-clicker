@@ -9,7 +9,7 @@ export const Main = () => {
     const counter = useAppSelector(state => state.counter.value)
   
     useEffect(() => {
-      document.title = `${counter} clicks`;
+      document.title = `${counter.toFixed()} clicks`;
     });
     
   return (

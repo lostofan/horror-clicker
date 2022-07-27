@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { addCounter, addKiller, buyItem } from '../redux/CounterSlice';
+import { addCounter, addKiller, buyItem, drawKiller } from '../redux/CounterSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 interface KillerButtonProps {
@@ -10,13 +10,15 @@ interface KillerButtonProps {
 }
 
 
-export const KillerButton:React.FC<KillerButtonProps> = ({name, multiplier, counter, price}) => {
+export const KillerButton:React.FC<KillerButtonProps> = 
+({name, multiplier, counter, price}) => {
     const dispatch = useAppDispatch();
     const mainCounter = useAppSelector(state => state.counter.value);
 
     const buyKiller = (name:string, price: number) => {
         dispatch(addKiller({name: name}));
         dispatch(buyItem({value: price}));
+        dispatch(drawKiller({name: name}))
     
     }
 
@@ -35,7 +37,7 @@ export const KillerButton:React.FC<KillerButtonProps> = ({name, multiplier, coun
     <button className="workbench__btn" 
             onClick={() => buyKiller(name, price)}
             disabled={!(mainCounter >= price)}>
-                <img src={require(`../img/${name + "-weapon"}.png`)} alt="" />
+                <img src={require(`../img/${name + "btn"}.png`)} alt="" />
             </button>
   )
 }
