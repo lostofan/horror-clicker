@@ -5,6 +5,7 @@ type CounterStateType = {
     value: number;
     clickMultiplier: number;
     killersArray: string[];
+    loaded: boolean;
     items: {
         killers: {
             [key:string]: {
@@ -25,9 +26,10 @@ type CounterStateType = {
 }
 
 const initialState:CounterStateType = {
-    value: 1500,
+    value: 0,
     clickMultiplier: 1,
     killersArray: [],
+    loaded: false,
     items: {
         killers: {
             jigsaw: {
@@ -47,8 +49,8 @@ const initialState:CounterStateType = {
             },
             pinhead: {
                 multiplier: 0.4,
-             value: 0,
-             price: 200,
+                value: 0,
+                price: 200,
             },
             chucky: {
                 multiplier: 0.5,
@@ -59,22 +61,22 @@ const initialState:CounterStateType = {
                 multiplier: 0.75,
                 value: 0,
                 price: 300,
-               },
-               freddy: {
+            },
+            freddy: {
                 multiplier: 1,
                 value: 0,
                 price: 400,
-               },
-               myers: {
+            },
+            myers: {
                 multiplier: 1.25,
                 value: 0,
                 price: 500,
-               },
-               leatherface: {
+            },
+            leatherface: {
                 multiplier: 1.5,
                 value: 0,
                 price: 600,
-               }
+            }
     }, weapons: {
         baloon: {
             multiplier: 0.1,
@@ -139,15 +141,31 @@ const counterSlice = createSlice({
     initialState,
     reducers: {
         loadGame: (state) => {
+            state.value = Number(localStorage.getItem('counter'));
 
+            state.killersArray = JSON.parse(localStorage.getItem('killers') || "[]");
+
+            const killersObj = state.items.killers;
+            for(let key in killersObj) {
+                killersObj[key] = JSON.parse(localStorage.getItem(key.toString()) || JSON.stringify(killersObj[key]));
+                console.log(killersObj[key]);
+            }
+
+            state.loaded = true;
+
+
+            
         },
         addCounter: (state, action:PayloadAction<ActionChangeCount>) => {
             state.value += action.payload.value;
             localStorage.setItem('counter', state.value.toFixed().toString());
-            console.log(localStorage.getItem('counter'));
         },
         addKiller: (state, action:PayloadAction<ActionPickType>) => {
             state.items.killers[action.payload.name].value += 1;
+            state.items.killers[action.payload.name].price *= 1.2;
+            localStorage.setItem( 
+                action.payload.name, JSON.stringify(state.items.killers[action.payload.name])
+                );
         },
         addWeapon: (state, action:PayloadAction<ActionChangeCount>) => {
             state.clickMultiplier *= action.payload.value;

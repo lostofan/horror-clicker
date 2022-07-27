@@ -1,19 +1,36 @@
 import React, { useEffect } from 'react';
 import { Main } from './components/Main';
 import { Header } from './components/Header';
-import { useAppDispatch } from './redux/hooks';
-import { loadGame } from './redux/CounterSlice';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { addCounter, loadGame } from './redux/CounterSlice';
 
 
 function App() {
   const dispatch = useAppDispatch();
+  const data = useAppSelector(state => state.counter.items.killers);
+  const loaded = useAppSelector(state => state.counter.loaded);
+  
   useEffect(() => {
     console.log("Loaded...");
     dispatch(loadGame());
-  }, [dispatch]
-  )
+  },[]);
+
+  useEffect(()=> {
+    console.log("ЕБАНУТЫЙ ИЛИ КАК?" + loaded);
+      console.log(data);
+    for (let key in data) {
+      for (let x = 0; x < data[key].value; x++) {
+        setInterval(() => dispatch(
+          addCounter({value: data[key].multiplier})), 1000
+          );
+      }
+    }
+    
+  }, [loaded]);
+
   return (
   <div className="app_wrapper">
+    <button onClick={() => console.log(data)}>HUY PIZDDA</button>
     <Header />
     <Main />
   </div>
