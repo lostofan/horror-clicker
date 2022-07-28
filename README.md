@@ -3,5 +3,5 @@ Modal on hover\
 ~~Weapon powerups~~\
 Animations\
 Improve design\
-Settings menu\
+~~Settings menu~~\
 Adaptive design
