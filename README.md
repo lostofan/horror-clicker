@@ -12,6 +12,10 @@ Sooo this project is inspired by films of this genre.
 # Controls
 * Killers adding kills to counter every second.
 * Weapons make your click more expensive.
+* Options:
+  1. First param is multiplier of your click
+  2. Add 100 clicks
+  3. Clear your local storage and reset game
 
 # Link
 
