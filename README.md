@@ -1,5 +1,5 @@
 # TO DO:
-Modal on hover\
+~~Modal on hover~~\
 ~~Weapon powerups~~\
 Animations\
 Improve design\
