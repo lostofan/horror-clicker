@@ -10,8 +10,8 @@ Sooo this project is inspired by films of this genre.
 * Typescript
 
 # Controls
-Killers adding kills to counter every second.
-Weapons make your click more expensive.
+* Killers adding kills to counter every second.
+* Weapons make your click more expensive.
 
 # Link
 
