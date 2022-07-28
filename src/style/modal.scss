@@ -1,0 +1,32 @@
+@import './variables.scss';
+
+.modal {
+  position: absolute;
+  left: 100px;
+  top: 0;
+  z-index: 100;
+  width: 350px;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 15px;
+  background-color: grey;
+  outline: 2px solid black;
+  .modal__img {
+    height: 100px;
+  }
+  .modal__content {
+    .modal__article {
+      font-size: 0.4rem;
+    }
+    .modal__stats {
+      font-size: 0.2rem;
+      margin-bottom: 4px;
+    }
+    .modal__info {
+      font-size: 0.17rem;
+      text-align: justify;
+    }
+  }
+}

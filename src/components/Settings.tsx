@@ -10,13 +10,21 @@ export const Settings = () => {
   return (
     <div className="burger__menu">
       <div className="burger__btn">
-        <button onClick={() => (styleToggle) ? setStyleToggle(false) : setStyleToggle(true)}>x</button>
+        <button onClick={() => (styleToggle) ? setStyleToggle(false) : setStyleToggle(true)}>
+          x
+        </button>
       </div>
-      <div className="burger__wrapper" style={(styleToggle) ? {display: 'flex'} : {display: "none"}}>
+      <div className="burger__wrapper" 
+           style={(styleToggle) ? {display: 'flex'} : {display: "none"}}>
         <div className="main__settings">
           <div className="ratiostat">{clickMlt.toFixed(2)}</div>
-          <button className="addbtn settings__btn" onClick={() => dispatch(addCounter({value: 100}))}>Add 100</button>
-          <button className="resetbtn settings__btn" onClick={() => dispatch(resetGame()) }>Reset</button>
+          <button className="addbtn settings__btn" 
+                  onClick={() => dispatch(addCounter({value: 100}))}>
+            Add 100
+          </button>
+          <button className="resetbtn settings__btn" onClick={() => dispatch(resetGame()) }>
+            Reset
+          </button>
         </div>
       </div>
     </div>

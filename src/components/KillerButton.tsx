@@ -1,6 +1,8 @@
+import React, { useState } from 'react'
 import { addCounter, addKiller, addWeapon, buyItem, drawKiller } from '../redux/CounterSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { KillerButtonProps } from '../types/propTypes';
+import { ModalTooltip } from './ModalTooltip';
 
 
 
@@ -10,6 +12,9 @@ export const KillerButton:React.FC<KillerButtonProps> =
     const dispatch = useAppDispatch();
     const mainCounter = useAppSelector(state => state.counter.value);
 
+    const [showModal, setShowModal] = useState(false);
+
+    
     const asyncCounter = (multiplier: number) => {
       setInterval(() => dispatch(
           addCounter({value: multiplier})), 1000
@@ -30,20 +35,28 @@ export const KillerButton:React.FC<KillerButtonProps> =
     }
 
   return (
+    <>
     <button className="workbench__btn" 
             onClick={() => buyKiller(name, price, multiplier, isKiller)}
-            disabled={!(mainCounter >= price)}>
+            disabled={!(mainCounter >= price)}
+            onMouseEnter={() => setShowModal(true)}
+            onMouseLeave={() => setShowModal(false)}
+            >
               {(isKiller) ? 
-              <img src={require(`../img/${name + "btn"}.png`)} alt="" /> :
-              <img src={require(`../img/${name}.png`)} alt="" />
-            }
+                 <img src={require(`../img/${name + "btn"}.png`)} alt="" /> :
+                 <img src={require(`../img/${name}.png`)} alt="" />
+              }
 
                 <div className="btn__price">
-                {price.toFixed()}
+                  {price.toFixed()}
                 </div>
                 <div className="btn__count">
-                {counter}
+                  {counter}
                 </div>
+                <ModalTooltip name={name} showModal={showModal} price={price} counter={counter} />
             </button>
+    
+      
+  </>
   )
 }

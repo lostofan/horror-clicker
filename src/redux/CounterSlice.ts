@@ -12,7 +12,7 @@ const initialState:CounterStateType = {
     loaded: false,
     items: {
         killers: {
-            jigsaw: {
+            billy: {
                 multiplier: 0.1,
                 value: 0,
                 price: 50,
