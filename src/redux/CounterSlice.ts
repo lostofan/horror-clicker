@@ -1,29 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ActionChangeCount, ActionKillerType, ActionWeaponType } from "../types/actionTypes";
+import { CounterStateType } from "../types/stateTypes";
 import { RootState } from "./store";
 
-type CounterStateType = {
-    value: number;
-    clickMultiplier: number;
-    killersArray: string[];
-    loaded: boolean;
-    items: {
-        killers: {
-            [key:string]: {
-            multiplier: number;
-            value: number;
-            price: number;
-        }
-        },
-        weapons: {
-            [key:string]: {
-                multiplier: number;
-                value: number;
-                price: number;
-            }
-        }
-        
-    }
-}
+
 
 const initialState:CounterStateType = {
     value: 0,
@@ -79,47 +59,47 @@ const initialState:CounterStateType = {
             }
     }, weapons: {
         baloon: {
-            multiplier: 0.1,
+            multiplier: 1.1,
             value: 0,
             price: 15,
         },
         mirror: {
-            multiplier: 0.2,
+            multiplier: 1.2,
             value: 0,
             price: 40,
         },
-        scytche: {
-            multiplier: 0.3,
+        scythe: {
+            multiplier: 1.3,
             value: 0,
             price: 100,
         },
         axe: {
-            multiplier: 0.5,
+            multiplier: 1.5,
             value: 0,
             price: 150,
         },
         chainsaw: {
-            multiplier: 0.7,
+            multiplier: 1.7,
             value: 0,
             price: 200,
         },
         knife: {
-            multiplier: 1,
+            multiplier: 2,
             value: 0,
             price: 250,
         },
         machete: {
-            multiplier: 1.25,
+            multiplier: 2.25,
             value: 0,
             price: 300,
         },
         glove: {
-            multiplier: 1.5,
+            multiplier: 2.5,
             value: 0,
             price: 350,
         },
         hatchet: {
-            multiplier: 2,
+            multiplier: 3,
             value: 0,
             price: 450,
         }
@@ -129,12 +109,7 @@ const initialState:CounterStateType = {
     
 }
 
-type ActionPickType = {
-    name: string;
-}
-type ActionChangeCount = {
-    value: number;
-}
+
 
 const counterSlice = createSlice({
     name: "counter",
@@ -146,38 +121,55 @@ const counterSlice = createSlice({
             state.killersArray = JSON.parse(localStorage.getItem('killers') || "[]");
 
             const killersObj = state.items.killers;
+            const weaponsObj = state.items.weapons;
             for(let key in killersObj) {
                 killersObj[key] = JSON.parse(localStorage.getItem(key.toString()) || JSON.stringify(killersObj[key]));
-                console.log(killersObj[key]);
             }
-
+            for(let key in weaponsObj) {
+                weaponsObj[key] = JSON.parse(localStorage.getItem(key.toString()) || JSON.stringify(weaponsObj[key]));
+            }
+            if (localStorage.getItem("clickMult") === null) {
+                state.clickMultiplier = 1;
+            } else {state.clickMultiplier = Number(localStorage.getItem("clickMult"))}
             state.loaded = true;
 
 
             
         },
         addCounter: (state, action:PayloadAction<ActionChangeCount>) => {
-            state.value += action.payload.value;
+            state.value += action.payload.value * state.clickMultiplier;
             localStorage.setItem('counter', state.value.toFixed().toString());
         },
-        addKiller: (state, action:PayloadAction<ActionPickType>) => {
+        addKiller: (state, action:PayloadAction<ActionKillerType>) => {
             state.items.killers[action.payload.name].value += 1;
             state.items.killers[action.payload.name].price *= 1.2;
             localStorage.setItem( 
                 action.payload.name, JSON.stringify(state.items.killers[action.payload.name])
                 );
         },
-        addWeapon: (state, action:PayloadAction<ActionChangeCount>) => {
+        addWeapon: (state, action:PayloadAction<ActionWeaponType>) => {
+            /* логика */
+            state.items.weapons[action.payload.name].value += 1;
+            state.items.weapons[action.payload.name].price *= 1.2;
             state.clickMultiplier *= action.payload.value;
+            /* запись данных */
+            localStorage.setItem("clickMult", state.clickMultiplier.toString());
+            localStorage.setItem( 
+                action.payload.name, JSON.stringify(state.items.weapons[action.payload.name])
+                );
         },
         buyItem: (state, action:PayloadAction<ActionChangeCount>) => {
             state.value -= action.payload.value;
         },
-        drawKiller: (state, action:PayloadAction<ActionPickType>) => {
+        drawKiller: (state, action:PayloadAction<ActionKillerType>) => {
             state.killersArray.push(action.payload.name);
             localStorage.setItem(
                 'killers', JSON.stringify(state.killersArray)
             );
+        },
+        resetGame: () => {
+            localStorage.clear();
+            document.location.reload();
         }
     }
 });
@@ -186,5 +178,5 @@ const counterSlice = createSlice({
 export const selectCount = (state: RootState) => state.counter.value;
 
 
-export const {loadGame, addCounter, addKiller, addWeapon, buyItem, drawKiller} = counterSlice.actions;
+export const {loadGame, addCounter, addKiller, addWeapon, buyItem, drawKiller, resetGame} = counterSlice.actions;
 export default counterSlice.reducer;

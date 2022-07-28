@@ -5,11 +5,13 @@ import { KillerButton } from './KillerButton';
 
 export const Workbench = () => {
 const killerList = useAppSelector(state => state.counter.items.killers);
+const weaponList = useAppSelector(state => state.counter.items.weapons);
 const killerArray = useAppSelector(state => state.counter.killersArray);
 
   return (
     <div className="workbench_wrapper">
         <div className="workbench__titles">
+        <p className="workbench__article">Killers:</p>
           {Object.entries(killerList).map(
             ([name, params], idx) => 
             <KillerButton 
@@ -18,6 +20,20 @@ const killerArray = useAppSelector(state => state.counter.killersArray);
             multiplier={params.multiplier}
             counter={params.value}
             price={params.price}
+            isKiller={true}
+            />
+            )
+          }
+          <p className="workbench__article">Weapons:</p>
+          {Object.entries(weaponList).map(
+            ([name, params], idx) => 
+            <KillerButton 
+            name={name}
+            key={idx}
+            multiplier={params.multiplier}
+            counter={params.value}
+            price={params.price}
+            isKiller={false}
             />
             )
           }

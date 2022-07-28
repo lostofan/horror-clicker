@@ -1,25 +1,44 @@
 @import 'variables.scss';
+.header {
+  h1 {
+    text-align: center;
+  }
+}
 .main {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  .main__panel {
-    margin-bottom: 15px;
+  .main__wrapper_sticky {
     display: flex;
     flex-direction: column;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    z-index: 5;
+    overflow: hidden;
+  }
+  .main__panel {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-bottom: 5px solid black;
     .main__counter {
-      font-size: 150px;
-      margin: auto;
+      display: flex;
+      font-size: 3rem;
+      width: 100vw;
+      justify-content: center;
     }
     .main__btn {
+      width: 20vw;
+      margin: 15px auto;
       background-color: white;
-      font-size: 40px;
+      font-size: 1rem;
       border: 3px solid black;
       padding: 15px;
-      margin: auto;
+      cursor: url('../img/knife.png'), auto;
     }
   }
 }

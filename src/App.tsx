@@ -10,18 +10,16 @@ function App() {
   const data = useAppSelector(state => state.counter.items.killers);
   const loaded = useAppSelector(state => state.counter.loaded);
   
-  useEffect(() => {
-    console.log("Loaded...");
+  useEffect(() => { 
     dispatch(loadGame());
   },[]);
 
   useEffect(()=> {
-    console.log("ЕБАНУТЫЙ ИЛИ КАК?" + loaded);
-      console.log(data);
     for (let key in data) {
       for (let x = 0; x < data[key].value; x++) {
-        setInterval(() => dispatch(
-          addCounter({value: data[key].multiplier})), 1000
+        setInterval(
+            () => dispatch(
+            addCounter({value: data[key].multiplier})), 1000
           );
       }
     }
@@ -30,7 +28,6 @@ function App() {
 
   return (
   <div className="app_wrapper">
-    <button onClick={() => console.log(data)}>HUY PIZDDA</button>
     <Header />
     <Main />
   </div>
