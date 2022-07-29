@@ -4,3 +4,17 @@
   font-family: 'Press Start 2P', cursive;
   font-size: 50px;
 }
+
+@media screen and (max-width: 750px) {
+  * {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  * {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+  }
+}

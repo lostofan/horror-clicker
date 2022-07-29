@@ -1,0 +1,45 @@
+.blood_anim {
+  background-color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 8px;
+}
+
+@for $i from 1 through 20 {
+  .drop#{$i} {
+    animation: splash#{$i} ease-in-out (calc($i / 10) - 0.5 + s) 1 forwards;
+  }
+  @keyframes splash#{$i} {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      @if ($i < 11 and $i % 2 == 0) {
+        transform: translate(
+            ($i * -15 + ($i * random(10)) + px),
+            ($i * 15 + ($i * random(10)) + px)
+          )
+          scale(0.6);
+      } @else if ($i < 11) {
+        transform: translate(
+            ($i * 15 + ($i * random(10)) + px),
+            ($i * -15 + ($i * random(10)) + px)
+          )
+          scale(0.6);
+      } @else if ($i % 2 == 0) {
+        transform: translate(
+            ($i * -15 + ($i * random(10)) + px),
+            ($i * -15 + ($i * random(10)) + px)
+          )
+          scale(0.6);
+      } @else {
+        transform: translate(($i * 15 + ($i * random(10)) + px), ($i * 15 + ($i * random(10)) + px))
+          scale(0.6);
+      }
+      display: none;
+    }
+  }
+}

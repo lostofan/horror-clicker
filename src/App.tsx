@@ -12,7 +12,7 @@ function App() {
   
   useEffect(() => { 
     dispatch(loadGame());
-  },[]);
+  },[dispatch]);
 
   useEffect(()=> {
     for (let key in data) {
@@ -24,7 +24,7 @@ function App() {
       }
     }
     
-  }, [loaded]);
+  }, [data, dispatch, loaded]);
 
   return (
   <div className="app_wrapper">

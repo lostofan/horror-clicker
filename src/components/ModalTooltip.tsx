@@ -21,7 +21,7 @@ export const ModalTooltip:React.FC<modalType> = ({name, showModal, price, counte
                     {name}
                 </h1>
                 <div className="modal__stats">
-                    Price: {price} Count: {counter} 
+                    Price: {price.toFixed()} Count: {counter} 
                 </div>
                 <p className="modal__info">
                     {bios[name]}

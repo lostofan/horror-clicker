@@ -8,3 +8,7 @@ export type ActionWeaponType = {
 export type ActionChangeCount = {
     value: number;
 }
+export type ActionCoordinates = {
+    x: number;
+    y: number;
+}

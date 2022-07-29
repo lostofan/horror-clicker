@@ -11,7 +11,7 @@ export const Settings = () => {
     <div className="burger__menu">
       <div className="burger__btn">
         <button onClick={() => (styleToggle) ? setStyleToggle(false) : setStyleToggle(true)}>
-          x
+          options
         </button>
       </div>
       <div className="burger__wrapper" 

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ActionChangeCount, ActionKillerType, ActionWeaponType } from "../types/actionTypes";
+import { ActionChangeCount, ActionCoordinates, ActionKillerType, ActionWeaponType } from "../types/actionTypes";
 import { CounterStateType } from "../types/stateTypes";
 import { RootState } from "./store";
 
@@ -10,6 +10,7 @@ const initialState:CounterStateType = {
     clickMultiplier: 1,
     killersArray: [],
     loaded: false,
+    animArray: [],
     items: {
         killers: {
             billy: {
@@ -170,6 +171,12 @@ const counterSlice = createSlice({
         resetGame: () => {
             localStorage.clear();
             document.location.reload();
+        },
+        drawBlood: (state, action:PayloadAction<ActionCoordinates>) => {
+            if (state.animArray.length >= 20) {
+                state.animArray.shift();
+            }
+            state.animArray.push([action.payload.x, action.payload.y]);
         }
     }
 });
@@ -178,5 +185,5 @@ const counterSlice = createSlice({
 export const selectCount = (state: RootState) => state.counter.value;
 
 
-export const {loadGame, addCounter, addKiller, addWeapon, buyItem, drawKiller, resetGame} = counterSlice.actions;
+export const {loadGame, addCounter, addKiller, addWeapon, buyItem, drawKiller, resetGame, drawBlood} = counterSlice.actions;
 export default counterSlice.reducer;

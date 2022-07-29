@@ -3,6 +3,7 @@ export type CounterStateType = {
     clickMultiplier: number;
     killersArray: string[];
     loaded: boolean;
+    animArray: number[][];
     items: {
         killers: {
             [key:string]: {
