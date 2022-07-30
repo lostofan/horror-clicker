@@ -9,11 +9,8 @@ export const Counter = () => {
 
     
   return (
-    <div className="main__panel">
       <div className="main__counter">
         {counter.toFixed()}
       </div>
-      <MainButton />
-    </div>
   )
 }

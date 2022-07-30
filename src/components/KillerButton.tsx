@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { addCounter, addKiller, addWeapon, buyItem, drawKiller } from '../redux/CounterSlice';
+import { addCounter, addKiller, addWeapon, buyItem, drawKiller, updateCounter } from '../redux/CounterSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { KillerButtonProps } from '../types/propTypes';
 import { ModalTooltip } from './ModalTooltip';
@@ -13,11 +13,12 @@ export const KillerButton:React.FC<KillerButtonProps> =
     const mainCounter = useAppSelector(state => state.counter.value);
 
     const [showModal, setShowModal] = useState(false);
+    const currentIntervalId = React.useRef<any>();
 
     
     const asyncCounter = (multiplier: number) => {
-      setInterval(() => dispatch(
-          addCounter({value: multiplier})), 1000
+      currentIntervalId.current = setInterval(() => dispatch(
+        updateCounter({value: multiplier * (counter + 1) })), 1000
           );
     }
 
@@ -25,7 +26,8 @@ export const KillerButton:React.FC<KillerButtonProps> =
       if (isKiller) {
         dispatch(addKiller({name: name}));
         dispatch(buyItem({value: price}));
-        dispatch(drawKiller({name: name}))
+        dispatch(drawKiller({name: name}));
+        clearInterval(currentIntervalId.current);
         asyncCounter(multiplier);
       } else {
         dispatch(addWeapon({name: name, value: multiplier}));

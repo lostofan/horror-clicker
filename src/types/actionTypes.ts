@@ -7,6 +7,7 @@ export type ActionWeaponType = {
 }
 export type ActionChangeCount = {
     value: number;
+    killerName?: string;
 }
 export type ActionCoordinates = {
     x: number;
