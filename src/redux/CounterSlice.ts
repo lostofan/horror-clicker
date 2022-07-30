@@ -7,10 +7,12 @@ import { RootState } from "./store";
 
 const initialState:CounterStateType = {
     value: 0,
+    killerInterval: null,
     clickMultiplier: 1,
+    killersMultiplier: 0,
     killersArray: [],
-    loaded: false,
     animArray: [],
+    loaded: false,
     items: {
         killers: {
             billy: {

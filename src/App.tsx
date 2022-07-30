@@ -10,7 +10,7 @@ function App() {
   const data = useAppSelector(state => state.counter.items.killers);
   const loaded = useAppSelector(state => state.counter.loaded);
   
-  useEffect(() => { 
+/*   useEffect(() => { 
     dispatch(loadGame());
   },[dispatch]);
 
@@ -25,7 +25,7 @@ function App() {
     }
     
   }, [data, dispatch, loaded]);
-
+ */
   return (
   <div className="app_wrapper">
     <Header />

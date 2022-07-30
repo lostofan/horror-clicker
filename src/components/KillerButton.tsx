@@ -11,14 +11,17 @@ export const KillerButton:React.FC<KillerButtonProps> =
 ({name, multiplier, counter, price, isKiller}) => {
     const dispatch = useAppDispatch();
     const mainCounter = useAppSelector(state => state.counter.value);
-
+    let killerInterval = useAppSelector(state => state.counter.killerInterval);
     const [showModal, setShowModal] = useState(false);
 
     
+    
     const asyncCounter = (multiplier: number) => {
-      setInterval(() => dispatch(
+      console.log(killerInterval);
+      killerInterval = setInterval(() => dispatch(
           addCounter({value: multiplier})), 1000
           );
+      console.log(killerInterval);
     }
 
     const buyKiller = (name:string, price: number, multiplier:number, isKiller:boolean) => {
