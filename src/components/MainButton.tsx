@@ -19,12 +19,10 @@ export const MainButton = () => {
   return (
   <>
            <button className="main__btn" 
-           onClick={
-            (ev) => btnClick(ev)
-            }>
+           onClick={btnClick}>
               Kill one
-              {arr.map( ([x, y], idx) => 
-              <div key={idx + Math.random()}>
+              {arr.map( ({id, coords:{x,y}}) => 
+              <div key={id}>
                  <div className="blood_anim drop1" style={{left: x, top: y}}></div>
                  <div className="blood_anim drop2" style={{left: x, top: y}}></div>
                  <div className="blood_anim drop3" style={{left: x, top: y}}></div>

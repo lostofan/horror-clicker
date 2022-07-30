@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { randomUUID } from "crypto";
 import { ActionChangeCount, ActionCoordinates, ActionKillerType, ActionWeaponType } from "../types/actionTypes";
-import { CounterStateType } from "../types/stateTypes";
+import { CounterStateType, Dots, KillerStatus } from "../types/stateTypes";
 import { RootState } from "./store";
+
+import * as uuid from 'uuid'
+
 
 
 
@@ -17,46 +21,55 @@ const initialState:CounterStateType = {
                 multiplier: 0.1,
                 value: 0,
                 price: 50,
+                status: KillerStatus.UnWorking,
             },
             ghostface: {
                 multiplier: 0.2,
                 value: 0,
                 price: 100,
+                status: KillerStatus.UnWorking,
             },
             pennywise: {
                 multiplier: 0.3,
                 value: 0,
                 price: 150,
+                status: KillerStatus.UnWorking,
             },
             pinhead: {
                 multiplier: 0.4,
                 value: 0,
                 price: 200,
+                status: KillerStatus.UnWorking,
             },
             chucky: {
                 multiplier: 0.5,
                 value: 0,
                 price: 250,
+                status: KillerStatus.UnWorking,
             },
             jason: {
                 multiplier: 0.75,
                 value: 0,
                 price: 300,
+                status: KillerStatus.UnWorking,
             },
             freddy: {
                 multiplier: 1,
                 value: 0,
                 price: 400,
+                status: KillerStatus.UnWorking,
             },
             myers: {
                 multiplier: 1.25,
                 value: 0,
                 price: 500,
+                status: KillerStatus.UnWorking,
             },
             leatherface: {
                 multiplier: 1.5,
                 value: 0,
                 price: 600,
+                status: KillerStatus.UnWorking,
             }
     }, weapons: {
         baloon: {
@@ -132,20 +145,26 @@ const counterSlice = createSlice({
             if (localStorage.getItem("clickMult") === null) {
                 state.clickMultiplier = 1;
             } else {state.clickMultiplier = Number(localStorage.getItem("clickMult"))}
-            state.loaded = true;
-
-
-            
+            state.loaded = true;            
         },
         addCounter: (state, action:PayloadAction<ActionChangeCount>) => {
+            state.value += action.payload.value * state.clickMultiplier;
+
+            if(action.payload?.killerName) {
+                state.items.killers[action.payload.killerName].status = KillerStatus.Working;
+            }
+            localStorage.setItem('counter', state.value.toFixed().toString());
+        },
+        updateCounter: (state, action:PayloadAction<ActionChangeCount>) => {
             state.value += action.payload.value * state.clickMultiplier;
             localStorage.setItem('counter', state.value.toFixed().toString());
         },
         addKiller: (state, action:PayloadAction<ActionKillerType>) => {
             state.items.killers[action.payload.name].value += 1;
             state.items.killers[action.payload.name].price *= 1.2;
+            state.items.killers[action.payload.name].status = KillerStatus.Working;
             localStorage.setItem( 
-                action.payload.name, JSON.stringify(state.items.killers[action.payload.name])
+                action.payload.name, JSON.stringify({...state.items.killers[action.payload.name], status: KillerStatus.UnWorking,})
                 );
         },
         addWeapon: (state, action:PayloadAction<ActionWeaponType>) => {
@@ -174,16 +193,27 @@ const counterSlice = createSlice({
         },
         drawBlood: (state, action:PayloadAction<ActionCoordinates>) => {
             if (state.animArray.length >= 20) {
-                state.animArray.shift();
+                state.animArray = state.animArray.slice(1);
             }
-            state.animArray.push([action.payload.x, action.payload.y]);
+            const {x,y} = action.payload;
+            const newArray = [...state.animArray, createDot([x,y])]
+                state.animArray = newArray;
         }
     }
 });
 
 
+const createDot = ([x,y]: [number, number]):Dots => {
+
+    return {
+        id: uuid.v4(),
+        coords: {x,y}
+    }
+}
+
+
 export const selectCount = (state: RootState) => state.counter.value;
 
 
-export const {loadGame, addCounter, addKiller, addWeapon, buyItem, drawKiller, resetGame, drawBlood} = counterSlice.actions;
+export const {loadGame, addCounter, addKiller, addWeapon, buyItem, drawKiller, resetGame, drawBlood, updateCounter} = counterSlice.actions;
 export default counterSlice.reducer;

@@ -3,6 +3,7 @@ import { useAppSelector } from '../redux/hooks';
 
 import "../style/main.scss"
 import { Counter } from './Counter';
+import { MainButton } from './MainButton';
 import { Settings } from './Settings';
 import { Workbench } from './Workbench';
 
@@ -17,7 +18,10 @@ export const Main = () => {
     <main className="main">
       <div className="main__wrapper_sticky">
         <Settings />
-        <Counter />
+        <div className="main__panel">
+            <Counter />
+            <MainButton/>
+        </div>
       </div>
       <Workbench />
     </main>

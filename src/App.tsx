@@ -3,6 +3,7 @@ import { Main } from './components/Main';
 import { Header } from './components/Header';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { addCounter, loadGame } from './redux/CounterSlice';
+import { KillerStatus } from './types/stateTypes';
 
 
 function App() {
@@ -15,12 +16,16 @@ function App() {
   },[dispatch]);
 
   useEffect(()=> {
+    
     for (let key in data) {
       for (let x = 0; x < data[key].value; x++) {
+
+        if(data[key].status === KillerStatus.UnWorking) {
         setInterval(
             () => dispatch(
-            addCounter({value: data[key].multiplier})), 1000
+            addCounter({value: data[key].multiplier, killerName: key})), 1000
           );
+            }
       }
     }
     
