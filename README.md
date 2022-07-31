@@ -24,7 +24,7 @@ https://horror-clicker.herokuapp.com/
 # TO DO:
 ~~Modal on hover~~\
 ~~Weapon powerups~~\
-Animations\
-Improve design\
+~~Animations~~\
+~~Improve design~~\
 ~~Settings menu~~\
 Adaptive design
