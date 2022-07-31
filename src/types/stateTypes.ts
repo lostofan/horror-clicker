@@ -5,7 +5,7 @@ export type CounterStateType = {
     killerInterval: ReturnType<typeof setInterval> | null;
     killersArray: string[];
     loaded: boolean;
-    animArray: number[][];
+    animArray: Dots[];
     items: {
         killers: {
             [key:string]: {
@@ -22,5 +22,13 @@ export type CounterStateType = {
             }
         }
         
+    }
+}
+
+export type Dots = {
+    id: string;
+    coords: {
+        x: number;
+         y: number
     }
 }

@@ -8,7 +8,7 @@ export const MainButton = () => {
     const arr = useAppSelector(state => state.counter.animArray);
 
     const btnClick = (ev:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      dispatch(addCounter({value: 1}));
+      dispatch(addCounter({value: 1, isAsync: false}));
       const clickPosition = ev.currentTarget.getBoundingClientRect();
       dispatch(drawBlood({
         x: ev.clientX - clickPosition.left,
@@ -23,8 +23,8 @@ export const MainButton = () => {
             (ev) => btnClick(ev)
             }>
               Kill one
-              {arr.map( ([x, y], idx) => 
-              <div key={idx + Math.random()}>
+              {arr.map( ({id, coords:{x,y}}) => 
+              <div key={id}>
                  <div className="blood_anim drop1" style={{left: x, top: y}}></div>
                  <div className="blood_anim drop2" style={{left: x, top: y}}></div>
                  <div className="blood_anim drop3" style={{left: x, top: y}}></div>

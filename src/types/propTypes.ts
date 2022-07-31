@@ -4,4 +4,5 @@ export interface KillerButtonProps {
     counter: number;
     price: number;
     isKiller: boolean;
+    loadedTimer?: any;
 }

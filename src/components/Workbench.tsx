@@ -1,12 +1,28 @@
-import React from 'react'
-import { useAppSelector } from '../redux/hooks'
+import React, { useEffect } from 'react';
+import { addCounter } from '../redux/CounterSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import '../style/workbench.scss'
 import { KillerButton } from './KillerButton';
 
 export const Workbench = () => {
+
+
+  const dispatch = useAppDispatch();
+
 const killerList = useAppSelector(state => state.counter.items.killers);
 const weaponList = useAppSelector(state => state.counter.items.weapons);
 const killerArray = useAppSelector(state => state.counter.killersArray);
+
+const loadedIntervalId = React.useRef<any>();
+
+useEffect(()=> {
+  console.log("ETO YA");
+  loadedIntervalId.current = setInterval(
+      () => dispatch(
+        addCounter({value: 0, isAsync: true})), 1000
+    );
+
+}, []);
 
   return (
     <div className="workbench_wrapper">
@@ -21,6 +37,7 @@ const killerArray = useAppSelector(state => state.counter.killersArray);
             counter={params.value}
             price={params.price}
             isKiller={true}
+            loadedTimer={loadedIntervalId}
             />
             )
           }

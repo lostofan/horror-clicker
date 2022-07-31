@@ -5,6 +5,7 @@ import "../style/settings.scss";
 
 export const Settings = () => {
     const clickMlt = useAppSelector(state => state.counter.clickMultiplier);
+    const killersMlt = useAppSelector(state => state.counter.killersMultiplier);
     const dispatch = useAppDispatch();
     const [styleToggle, setStyleToggle] = useState(false)
   return (
@@ -17,9 +18,10 @@ export const Settings = () => {
       <div className="burger__wrapper" 
            style={(styleToggle) ? {display: 'flex'} : {display: "none"}}>
         <div className="main__settings">
-          <div className="ratiostat">{clickMlt.toFixed(2)}</div>
+          <div className="ratiostat">per click {clickMlt.toFixed(2)}</div>
+          <div className="ratiostat">per sec {killersMlt.toFixed(2)}</div>
           <button className="addbtn settings__btn" 
-                  onClick={() => dispatch(addCounter({value: 100}))}>
+                  onClick={() => dispatch(addCounter({value: 100, isAsync: false}))}>
             Add 100
           </button>
           <button className="resetbtn settings__btn" onClick={() => dispatch(resetGame()) }>

@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ActionChangeCount, ActionCoordinates, ActionKillerType, ActionWeaponType } from "../types/actionTypes";
-import { CounterStateType } from "../types/stateTypes";
+import { ActionBuy, ActionChangeCount, 
+    ActionCoordinates, 
+    ActionKillerType, ActionWeaponType, 
+    DrawAction } from "../types/actionTypes";
+import { CounterStateType, Dots } from "../types/stateTypes";
 import { RootState } from "./store";
+import { v4 as uuid } from 'uuid';
 
 
 
@@ -128,24 +132,38 @@ const counterSlice = createSlice({
             for(let key in killersObj) {
                 killersObj[key] = JSON.parse(localStorage.getItem(key.toString()) || JSON.stringify(killersObj[key]));
             }
+
             for(let key in weaponsObj) {
                 weaponsObj[key] = JSON.parse(localStorage.getItem(key.toString()) || JSON.stringify(weaponsObj[key]));
             }
+
             if (localStorage.getItem("clickMult") === null) {
                 state.clickMultiplier = 1;
             } else {state.clickMultiplier = Number(localStorage.getItem("clickMult"))}
+
+            if (localStorage.getItem("killersMult") === null) {
+                state.killersMultiplier = 0;
+            } else {state.killersMultiplier = Number(localStorage.getItem("killersMult"))}
             state.loaded = true;
 
 
             
         },
         addCounter: (state, action:PayloadAction<ActionChangeCount>) => {
-            state.value += action.payload.value * state.clickMultiplier;
+            if (action.payload.isAsync) {
+                state.value += state.killersMultiplier;
+            } else {
+                state.value += action.payload.value * state.clickMultiplier;
+            }
+            
             localStorage.setItem('counter', state.value.toFixed().toString());
         },
         addKiller: (state, action:PayloadAction<ActionKillerType>) => {
             state.items.killers[action.payload.name].value += 1;
             state.items.killers[action.payload.name].price *= 1.2;
+            state.killersMultiplier += action.payload.multiplier;
+
+            localStorage.setItem("killersMult", state.killersMultiplier.toString());
             localStorage.setItem( 
                 action.payload.name, JSON.stringify(state.items.killers[action.payload.name])
                 );
@@ -161,10 +179,11 @@ const counterSlice = createSlice({
                 action.payload.name, JSON.stringify(state.items.weapons[action.payload.name])
                 );
         },
-        buyItem: (state, action:PayloadAction<ActionChangeCount>) => {
+        buyItem: (state, action:PayloadAction<ActionBuy>) => {
             state.value -= action.payload.value;
+            localStorage.setItem('counter', state.value.toFixed().toString());
         },
-        drawKiller: (state, action:PayloadAction<ActionKillerType>) => {
+        drawKiller: (state, action:PayloadAction<DrawAction>) => {
             state.killersArray.push(action.payload.name);
             localStorage.setItem(
                 'killers', JSON.stringify(state.killersArray)
@@ -176,12 +195,22 @@ const counterSlice = createSlice({
         },
         drawBlood: (state, action:PayloadAction<ActionCoordinates>) => {
             if (state.animArray.length >= 20) {
-                state.animArray.shift();
+                state.animArray = state.animArray.slice(1);
             }
-            state.animArray.push([action.payload.x, action.payload.y]);
+            const {x,y} = action.payload;
+            const newArray = [...state.animArray, createDot([x,y])]
+                state.animArray = newArray;
         }
     }
 });
+
+const createDot = ([x,y]: [number, number]):Dots => {
+
+    return {
+        id: uuid(),
+        coords: {x,y}
+    }
+}
 
 
 export const selectCount = (state: RootState) => state.counter.value;
