@@ -19,7 +19,7 @@ Sooo this project is inspired by films of this genre.
 
 # Link
 
-"coming soon"
+https://horror-clicker.herokuapp.com/
 
 # TO DO:
 ~~Modal on hover~~\
