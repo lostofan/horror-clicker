@@ -2,11 +2,9 @@
 
 .modal {
   position: absolute;
-  left: 100px;
   top: 0;
   z-index: 100;
-  width: 350px;
-  height: 150px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -14,7 +12,7 @@
   background-color: grey;
   outline: 2px solid black;
   .modal__img {
-    height: 100px;
+    max-height: 100px;
   }
   .modal__content {
     .modal__article {
@@ -24,9 +22,42 @@
       font-size: 0.2rem;
       margin-bottom: 4px;
     }
-    .modal__info {
-      font-size: 0.17rem;
-      text-align: justify;
-    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .modal {
+    left: 100px;
+    width: 350px;
+    height: 150px;
+  }
+  .modal__info {
+    font-size: 0.2rem;
+    text-align: justify;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .modal {
+    left: 100px;
+    width: 300px;
+    height: 150px;
+  }
+  .modal__info {
+    font-size: 0.25rem;
+    text-align: justify;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .modal {
+    left: 0px;
+    top: 50px;
+    width: 300px;
+    height: 150px;
+  }
+  .modal__info {
+    font-size: 0.5rem;
+    text-align: justify;
   }
 }
