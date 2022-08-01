@@ -27,4 +27,4 @@ https://horror-clicker.herokuapp.com/
 ~~Animations~~\
 ~~Improve design~~\
 ~~Settings menu~~\
-Adaptive design
+~~Adaptive design~~
