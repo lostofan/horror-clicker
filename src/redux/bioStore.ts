@@ -3,7 +3,7 @@ type BiosType = {
 }
 
 export const bios:BiosType = {
-    billy: "Billy is a puppet that has appeared in the Saw franchise. It was used by John Kramer to communicate with his test subjects by delivering recorded messages, often appearing on a television screen or occasionally in person to describe the details of the traps and the means by which the test subjects could survive.",
+    billy: "Billy is a puppet that has appeared in the Saw franchise. It was used by John Kramer to communicate with his test subjects by delivering recorded messages, often appearing on a television",
     ghostface: "Ghostface (alternatively stylized as Ghost Face or GhostFace) is a fictional identity adopted by eleven characters in the Scream franchise. ",
     pennywise: "It is the title character and the main antagonist in Stephen King's 1986 horror novel It. ",
     pinhead: "Pinhead, Lead Cenobite, or the Hell Priest, is the main antagonist of the Hellraiser franchise, first appearing as an unnamed figure in the 1986 Clive Barker novella The Hellbound Heart.",

@@ -22,7 +22,7 @@ export const MainButton = () => {
            onClick={
             (ev) => btnClick(ev)
             }>
-              Kill one
+              Hunt
               <AnimateButton />
             </button> 
             

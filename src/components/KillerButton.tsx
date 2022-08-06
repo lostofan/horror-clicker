@@ -43,14 +43,10 @@ export const KillerButton:React.FC<KillerButtonProps> =
     <button className="workbench__btn" 
             onClick={() => buyKiller(name, price, multiplier, isKiller)}
             disabled={!(mainCounter >= price)}
-            onMouseEnter={() => setShowModal(true)}
-            onMouseLeave={() => setShowModal(false)}
             >
-              {(isKiller) ? 
-                 <img src={require(`../img/${name + "btn"}.png`)} alt="" /> :
-                 <img src={require(`../img/${name}.png`)} alt="" />
-              }
-
+                 <img onMouseEnter={() => setShowModal(true)}
+                 onMouseLeave={() => setShowModal(false)}
+                 src={require(`../img/${(isKiller) ? name + "btn" : name}.png`)} alt="" />
                 <div className="btn__price">
                   {price.toFixed()}
                 </div>
