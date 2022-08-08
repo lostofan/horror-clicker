@@ -7,8 +7,6 @@ import { CounterStateType, Dots } from "../types/stateTypes";
 import { RootState } from "./store";
 import { v4 as uuid } from 'uuid';
 
-
-
 const initialState:CounterStateType = {
     value: 0,
     killerInterval: null,
@@ -189,10 +187,6 @@ const counterSlice = createSlice({
                 'killers', JSON.stringify(state.killersArray)
             );
         },
-        resetGame: () => {
-            localStorage.clear();
-            document.location.reload();
-        },
         drawBlood: (state, action:PayloadAction<ActionCoordinates>) => {
             if (state.animArray.length >= 20) {
                 state.animArray = state.animArray.slice(1);
@@ -216,5 +210,5 @@ const createDot = ([x,y]: [number, number]):Dots => {
 export const selectCount = (state: RootState) => state.counter.value;
 
 
-export const {loadGame, addCounter, addKiller, addWeapon, buyItem, drawKiller, resetGame, drawBlood} = counterSlice.actions;
+export const {loadGame, addCounter, addKiller, addWeapon, buyItem, drawKiller, drawBlood} = counterSlice.actions;
 export default counterSlice.reducer;

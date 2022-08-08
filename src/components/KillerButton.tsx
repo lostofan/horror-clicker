@@ -8,18 +8,18 @@ import { ModalTooltip } from './ModalTooltip';
 
 
 export const KillerButton:React.FC<KillerButtonProps> = 
-({name, multiplier, counter, price, isKiller, loadedTimer}) => {
+({name, multiplier, counter, price, isKiller, loadedTimer, currentTimer}) => {
 
 
     const dispatch = useAppDispatch();
     const mainCounter = useAppSelector(state => state.counter.value);
     const [showModal, setShowModal] = useState(false);
 
-    const currentIntervalId = React.useRef<any>();
+  
     
     const asyncCounter = () => {
       clearInterval(loadedTimer.current)
-      currentIntervalId.current = setInterval(() => dispatch(
+      currentTimer.current = setInterval(() => dispatch(
         addCounter({value: 0, isAsync: true})), 1000
           );
     }
@@ -29,7 +29,7 @@ export const KillerButton:React.FC<KillerButtonProps> =
         dispatch(addKiller({name: name, multiplier: multiplier}));
         dispatch(buyItem({value: price}));
         dispatch(drawKiller({name: name}))
-        clearInterval(currentIntervalId.current);
+        clearInterval(currentTimer.current);
         asyncCounter();
       } else {
         dispatch(addWeapon({name: name, value: multiplier}));

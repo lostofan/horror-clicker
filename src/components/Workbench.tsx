@@ -14,9 +14,9 @@ const weaponList = useAppSelector(state => state.counter.items.weapons);
 const killerArray = useAppSelector(state => state.counter.killersArray);
 
 const loadedIntervalId = React.useRef<any>();
+const currentIntervalId = React.useRef<any>();
 
 useEffect(()=> {
-  console.log("ETO YA");
   loadedIntervalId.current = setInterval(
       () => dispatch(
         addCounter({value: 0, isAsync: true})), 1000
@@ -38,6 +38,7 @@ useEffect(()=> {
             price={params.price}
             isKiller={true}
             loadedTimer={loadedIntervalId}
+            currentTimer={currentIntervalId}
             />
             )
           }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { addCounter, resetGame } from '../redux/CounterSlice';
+import { addCounter } from '../redux/CounterSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import "../style/settings.scss";
 
@@ -8,6 +8,12 @@ export const Settings = () => {
     const killersMlt = useAppSelector(state => state.counter.killersMultiplier);
     const dispatch = useAppDispatch();
     const [styleToggle, setStyleToggle] = useState(false)
+
+    async function resetGame() {
+            await localStorage.clear();
+            document.location.reload();
+    }
+
   return (
     <div className="burger__menu">
       <div className="burger__btn">
@@ -24,7 +30,7 @@ export const Settings = () => {
                   onClick={() => dispatch(addCounter({value: 100, isAsync: false}))}>
             Add 100
           </button>
-          <button className="resetbtn settings__btn" onClick={() => dispatch(resetGame()) }>
+          <button className="resetbtn settings__btn" onClick={() => resetGame()}>
             Reset
           </button>
         </div>
