@@ -28,3 +28,9 @@ https://horror-clicker.herokuapp.com/
 ~~Improve design~~\
 ~~Settings menu~~\
 ~~Adaptive design~~
+Learn redux thunk to fix reset button
+
+bugs to fix:
+~~Modal hover~~
+~~Bigints ruins template~~
+Reset button
