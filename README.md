@@ -29,8 +29,8 @@ https://horror-clicker.herokuapp.com/
 ~~Settings menu~~\
 ~~Adaptive design~~
 
-bugs to fix:
+# bugs to fix:
 ~~Modal hover~~
 ~~Bigints ruins template~~
 ~~Reset button~~
-~Async counter on different killers~~
+~~Async counter on different killers~~
