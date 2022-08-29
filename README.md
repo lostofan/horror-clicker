@@ -19,8 +19,8 @@ Sooo this project is inspired by films of this genre.
 * Your progress is saving in local storage.
 
 # Link
-https://verdant-rugelach-c00bcf.netlify.app
-https://horror-clicker.herokuapp.com/
+* https://verdant-rugelach-c00bcf.netlify.app
+* https://horror-clicker.herokuapp.com/
 
 # TO DO:
 ~~Modal on hover~~\
