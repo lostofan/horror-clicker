@@ -29,6 +29,7 @@ Sooo this project is inspired by films of this genre.
 ~~Improve design~~\
 ~~Settings menu~~\
 ~~Adaptive design~~
+fix context modal
 
 # bugs to fix:
 ~~Modal hover~~\
