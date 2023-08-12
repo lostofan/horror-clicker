@@ -16,11 +16,10 @@ Sooo this project is inspired by films of this genre.
   1. First param is multiplier of your click
   2. Add 100 clicks
   3. Clear your local storage and reset game
-* Your progress is saving in local storage.
+* Your progress is saving in local storage.  To  delete it - click RESET!
 
-# Link
+# Deploy
 * https://verdant-rugelach-c00bcf.netlify.app
-* https://horror-clicker.herokuapp.com/
 
 # TO DO:
 ~~Modal on hover~~\
